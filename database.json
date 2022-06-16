@@ -1,0 +1,9 @@
+{
+    "dev": {
+      "driver": "pg",
+      "user": "postgres",
+      "password": "Utatai007",
+      "host": "localhost",
+      "database": "comot"
+    }
+  }
