@@ -1,13 +1,27 @@
-const express = require('express'); //Import the express dependency
-const app = express();              //Instantiate an express app, the main work horse of this server
-const port = 5000;                  //Save the port number where your server will be listening
+const express = require('express');
+const app = express();      
+const Route = require('./routes/api');           
+require('dotenv').config();
+var bodyParser = require('body-parser');
+const PORT = process.env.PORT; 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }))
 
-//Idiomatic expression in express to route and respond to a client request
-app.get('/', (req, res) => {        //get requests to the root ("/") will route here
-    res.sendFile('views/index.html', {root: __dirname});      //server responds by sending the index.html file to the client's browser
-                                                        //the .sendFile method needs the absolute path to the file, see: https://expressjs.com/en/4x/api.html#res.sendFile 
+app.use((err, req, res, next) => {
+    if(err.statusCode) {
+        res.status(err.statusCode).send(err.message);
+    } else {
+        console.log(err);
+        res.status(500).send('Something unexpected happened');
+    }
 });
 
-app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
-    console.log(`Now listening on port ${port}`); 
+app.get('/', (req, res) => {
+    res.sendFile('views/index.html', {root: __dirname});
+});
+
+app.use(Route);
+
+app.listen(PORT, () => {
+    console.log(`Now listening on port ${PORT}`); 
 });
