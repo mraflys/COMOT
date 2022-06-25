@@ -1,6 +1,6 @@
 var models = require('../models/index');
 const Profile = require('../models').Profile;
-
+const nodemailer = require('../config/nodemailer.config');
 exports.postSignup = async (req, res) => {
     try {
         var modUser = models.User.create({
@@ -11,7 +11,13 @@ exports.postSignup = async (req, res) => {
             updatedAt: req.body.updatedAt,
             createdAt: req.body.createdAt
         }).then(function(user) {
-            res.json(user);
+            var confirmationCode = '?verify=1&id='+user.id;
+            nodemailer.sendConfirmationEmail(
+                user.email,
+                user.email,
+                confirmationCode
+            );
+            
         });
     } catch (error) {
         const errorToThrow = new Error();
@@ -141,6 +147,33 @@ exports.deleteUser = async (req, res) => {
                 });
             }
         });
+    } catch (error) {
+        const errorToThrow = new Error();
+        switch (error?.code) {
+            case '23505':
+                errorToThrow.message = 'Error';
+                errorToThrow.statusCode = 403;
+                break;
+            default:
+                errorToThrow.statusCode = 500;
+        }
+    }
+};
+
+exports.getverif = async (req, res) => {
+    try {
+        if(req.query.verify == 1){
+            models.User.findByPk(req.query.id,{
+            }).then(function(user) {
+                if(user){
+                    user.update({
+                    verification: true,
+                    }).then(function(user) {
+                        res.send(user);
+                    });
+                }
+            });
+        }
     } catch (error) {
         const errorToThrow = new Error();
         switch (error?.code) {
