@@ -14,7 +14,6 @@ exports.postSignup = async (req, res) => {
             var confirmationCode = '?verify=1&id='+user.id;
             nodemailer.sendConfirmationEmail(
                 user.email,
-                user.email,
                 confirmationCode
             );
             
