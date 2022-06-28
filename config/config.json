@@ -1,21 +1,21 @@
 {
   "development": {
     "username": "postgres",
-    "password": "Utatai007",
+    "password": "root",
     "database": "comot",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
-    "password": "Utatai007",
+    "password": "root",
     "database": "comot",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
-    "password": "Utatai007",
+    "password": "root",
     "database": "comot",
     "host": "127.0.0.1",
     "dialect": "postgres"
