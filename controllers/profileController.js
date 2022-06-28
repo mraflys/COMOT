@@ -1,6 +1,24 @@
 var models = require('../models/index');
 const Profile = require('../models').Profile;
 
+exports.getAllListProfile = async (req, res) => {
+    try {
+        models.Profile.findAll({}).then(function(profile) {
+            res.json(profile);
+        });
+    } catch (error) {
+        const errorToThrow = new Error();
+        switch (error?.code) {
+            case '23505':
+                errorToThrow.message = 'Error';
+                errorToThrow.statusCode = 403;
+                break;
+            default:
+                errorToThrow.statusCode = 500;
+        }
+    }
+};
+
 exports.postProfile = async (req, res) => {
     try {
         var modProfile = models.Profile.create({

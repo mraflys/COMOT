@@ -11,7 +11,8 @@ router.get('/users', usersController.getAllListUser); //show all
 router.get('/users/:id', usersController.getSingleListUser); //show 1 user
 router.get('/users-full/:id', usersController.getSingleListUserFull); //show 1 user with profile
 
-//peofile
+//profile
+router.get('/profiles', profileController.getAllListProfile);
 router.post('/profiles', profileController.postProfile);
 router.put('/profiles/:id', profileController.putProfile);
 module.exports = router;
