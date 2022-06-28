@@ -44,7 +44,7 @@ exports.getAllListPosting = async (req, res) => {
 exports.getSingleListPosting = async (req, res) => {
     try {
         models.Posting.findByPk(req.params.id,{}).then(function(user) {
-            if (!posting) {
+            if (!user) {
                 return res.status(404).send({
                     message: 'Article Not Found',
                 });
