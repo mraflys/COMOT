@@ -15,4 +15,7 @@ router.get('/users-full/:id', usersController.getSingleListUserFull); //show 1 u
 router.get('/profiles', profileController.getAllListProfile);
 router.post('/profiles', profileController.postProfile);
 router.put('/profiles/:id', profileController.putProfile);
+router.get('/confirm', usersController.getverif);
+//peofile
+router.post('/peofiles', profileController.postProfile);
 module.exports = router;
