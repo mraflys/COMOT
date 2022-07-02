@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         as: 'user'});
       Profile.hasOne(models.Address, {
         foreignKey: 'profile_id',
-        as: 'Profile',
+        as: 'profile',
       });
     }
   }
