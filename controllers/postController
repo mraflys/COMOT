@@ -1,0 +1,93 @@
+router.post('/job', postController.postJob);
+exports.putUser = async (req, res) => {
+    try {
+        models.post.findByPk(req.params.id,{
+
+        }).then(function(user) {
+            if(user){
+                user.update({
+                jobname: req.body.jobname,
+                location: req.body.location,
+                salary: req.body.salary,
+                email: req.body.email,
+                role: req.body.role,
+                updatedAt: req.body.updatedAt,
+                createdAt: req.body.createdAt
+                }).then(function(user) {
+                res.send(user);
+                });
+            }
+        });
+    } catch (error) {
+        const errorToThrow = new Error();
+        switch (error?.code) {
+            case '23505':
+                errorToThrow.message = 'Error';
+                errorToThrow.statusCode = 403;
+                break;
+            default:
+                errorToThrow.statusCode = 500;
+        }
+    }
+};
+
+exports.updatePost = async (req, res) => {
+    try {
+        models.post.findByPk(req.params.id,{
+
+        }).then(function(user) {
+            if(post){
+                user.update({
+                    jobname: req.body.jobname,
+                    location: req.body.location,
+                    salary: req.body.salary,
+                    email: req.body.email,
+                    role: req.body.role,
+                    updatedAt: req.body.updatedAt,
+                    createdAt: req.body.createdAt
+                    }).then(function(user) {
+                    res.send(user);
+                    });
+            }
+        });
+    } catch (error) {
+        const errorToThrow = new Error();
+        switch (error?.code) {
+            case '23505':
+                errorToThrow.message = 'Error';
+                errorToThrow.statusCode = 403;
+                break;
+            default:
+                errorToThrow.statusCode = 500;
+        }
+    }
+};
+
+exports.deletePost = async (req, res) => {
+    try {
+        models.User.findByPk(req.params.id,{
+
+        }).then(function(user) {
+            if(user){
+                user.destroy().then(function() {
+                    let data = {
+                        'status':"sucsess",
+                        'sucsess':true
+                    };
+                res.send(data);
+                });
+            }
+        });
+    } catch (error) {
+        const errorToThrow = new Error();
+        switch (error?.code) {
+            case '23505':
+                errorToThrow.message = 'Error';
+                errorToThrow.statusCode = 403;
+                break;
+            default:
+                errorToThrow.statusCode = 500;
+        }
+    }
+};
+module.exports = router;
